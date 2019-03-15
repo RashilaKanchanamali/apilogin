@@ -7,71 +7,29 @@ class logIntent extends Component {
     title: 'login'
   };
   state = {
-    data: []
-    
+    data: [],
+    //id:1
   };
  
 
-  /*componentWillMount() {
-    //this.fetchData();
-  }*/
-
   onButtonPress(){
     const { navigate } = this.props.navigation;
-  
-
-    // onButtonPress = async () => {
-      // const response = await
-       fetch("https://facebook.github.io/react-native/movies.json", {
-        method:'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type' : 'application/json',
-        },
-       })
-       .then((result)=>result.json())
-       .then((result)=>{ 
+    return fetch('https://facebook.github.io/react-native/movies.json')
+    
+    .then((response) => response.json())
+    .then((response) => {
+      //this.setState({ data: results.description });
+      if ( response !== null){
         console.log("working");
-        this.setState({ data: result.movies });
-         if ( this.state.data !== null){
-          
-          navigate('List');
-        }
-        else console.log("r")
-      }
-        // if ( res !== null){
-        //   const { navigate } = this.props.navigation;
-        //   navigate('List');
-        // }
-       )
-      // const json = await response.json();
-   
-      // this.setState({ data: json.results });
-     
-    // const response =await fetch('https://randomuser.me/api/?results', {
-  
-     /* method:'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type' : 'application/json',
-      },
-      body: JSON.stringify({
-        data:this.state.last
-      })*/
-
-    // }).then((response) => response.json())
-    //   .then((responseJson) => {
-    //     if ( responseJson !== null){
-    //       const { navigate } = this.props.navigation;
-    //       navigate('List');
-    //     }
-        
-    //   }).catch((error) => {
-    //    //Alert.alert(error);
-    //   });
-    // const json =await response.json();
-    // this.setState({ data: json.results}) 
-  // };
+             navigate('showlist');
+           }
+           else console.log("r")
+      console.log(this.state.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    
   }
 
   renderButton(){
@@ -82,21 +40,17 @@ class logIntent extends Component {
         </Button>
     );
 }
-
-  /*renderListItem = ({ item }) => (
-    <View>
-      <Text> { item.name.last}</Text> 
-    </View> 
-  )*/
   
   render() {
-    //console.log("working");
+
+    
+    console.log("working");
     return(
       <View>
         <TextInput
         ref="1"
         placeholder="user name"
-        onChangeText={last => this.setState({ last})}
+        onChangeText={id => this.setState({ id})}
         style={styles.inputStyle}
         value={this.state.response}
         underlineColorAndroid='transparent'
@@ -104,30 +58,11 @@ class logIntent extends Component {
 
       <View style= {styles.buttonStyle}>
       {this.renderButton()}
-      </View>
-
-      
-      
-      
+      </View>      
       </View>
 
     );
     
-    /*return (
-
-      <ScrollView>
-      <View style={styles.container}>
-        <FlatList
-        data={this.state.data}
-        keyExtractor={(x, i) => i.toString()}
-        renderItem={this.renderListItem}
-        />
-
-        </View>
-        </ScrollView>
-
-      
-    );*/
   }
 }
 
